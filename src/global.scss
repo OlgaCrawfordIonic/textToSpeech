@@ -24,3 +24,36 @@
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
+
+$content-width: 600px;
+
+$content-width-mobile: 100%;
+$centre-auto: 0 auto;
+$par: #3D3DB8;
+$headings-color:#2564B8;
+$text-alighn-center:center;
+
+ #content {width: $content-width;
+    margin: $centre-auto;   padding-bottom: 15px   
+   };
+ 
+@media screen and (max-width:600px){
+#content { width:$content-width-mobile; padding-bottom: 15px};
+                             };
+@media screen and (max-width:325px){
+
+   #content .homepage1   {font-size: 15px};
+  
+  
+  @media screen and (max-width:600px){
+  #content { width:$content-width-mobile; padding-bottom: 15px};
+                       };                                                     };
+#content {
+td {color:$par;  display:block; font-size:25px; line-height: 150%; }
+table {margin:$centre-auto; margin-bottom: 15px; }
+h2 {color:$headings-color; font-size: 29px; font-weight:bold; text-align:$text-alighn-center; padding-bottom:10px;}
+h3 { text-align: $text-alighn-center; font-size: 25px;}
+button {margin:15px 0px 15px 40px;} 
+p{margin: 0px 5px 0px 5px; color:$par;  font-size:25px; line-height: 150%;} 
+
+}    

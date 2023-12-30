@@ -1,0 +1,32 @@
+.slider-container {
+    width: 300px;
+    margin:0 auto;
+    text-align: center;
+  }
+  
+  .slide {
+    width:100%;
+    height:553px;
+    padding: 0px 20px ;
+    border: 1px blue solid;
+  }
+  .slide h1 {
+    font-weight: 500;
+    font-size: 40px; 
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    padding: 45px 20px 0px 20px;
+  }
+    
+  
+    img {
+      width: 100%;
+      height: auto;
+      padding-top: 50px;
+    }
+    .right{float:right;}
+  
+    .red-word {
+      color: red;
+    }
+ 

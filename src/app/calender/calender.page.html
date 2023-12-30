@@ -1,0 +1,17 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>calender</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <div id="content">
+    <h2>Learning Calender</h2>
+    <div *ngFor="let item of calender">
+    <h3>{{item.week}}</h3>
+    <p (click)="speak(item.text)">{{item.text}}</p>
+  </div>
+  </div>
+ 
+</ion-content>

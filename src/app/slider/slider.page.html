@@ -1,0 +1,30 @@
+<ion-header [translucent]="true">
+  
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="slider-container">
+    <div class="slide">
+      <h1>
+        {{processedItems[currentSlide].titleBeforeRed}}
+        <span class="red-word">{{processedItems[currentSlide].redWord}}</span>
+        {{processedItems[currentSlide].titleAfterRed}}
+      </h1>
+    <img [src]="items[currentSlide].image">
+   
+
+    </div>
+    <ion-button *ngIf="!(currentSlide===this.items.length-1)" class="right"  (click)="forward()"> Forward</ion-button> 
+   <ion-button (click)="auto()">Autoplay</ion-button>
+  </div>
+
+  <p>
+    1. 🇬🇧
+    2. 🇫🇷
+    3. 🇩🇪
+    4. 🇪🇸
+    5. 🇨🇳
+    6. 🇷🇺
+ </p> 
+   
+</ion-content>
