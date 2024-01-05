@@ -30,7 +30,8 @@ export class SliderFrenchPage implements OnInit {
  public sliderItems:SliderItem[]=[
     
   ];
- 
+  comments?:boolean;
+  commentsButton='';
   word?:Word;
   wordSub!:Subscription;
   image?:string
@@ -55,8 +56,14 @@ export class SliderFrenchPage implements OnInit {
        picture:'',}
     ]
     
-  constructor(private wordS: WordsService) { }
-  
+  constructor(private wordS: WordsService) {  }
+
+    showComments() {
+      this.comments = !this.comments;
+      this.commentsButton = this.comments ? "Hide Comments" : "Show Comments";
+    }
+    
+   
 
   getFlagEmoji(language: string): string {
     // Define an index signature for the flags object
@@ -74,7 +81,22 @@ export class SliderFrenchPage implements OnInit {
   }
   
   
-  
+  // In your component class
+
+// Add this method to split the title into three parts
+splitTitle(item: SliderItem): { before: string; red: string; after: string } {
+  const { title, redWord } = item;
+  const index = title?.indexOf(redWord);
+  if (index !== undefined && index >= 0) {
+    return {
+      before: title.substring(0, index),
+      red: redWord,
+      after: title.substring(index + redWord.length)
+    };
+  }
+  return { before: title, red: '', after: '' }; // If redWord is not found
+}
+
 
   speak(text:string){
     console.log('Parle' + text);
@@ -102,30 +124,59 @@ export class SliderFrenchPage implements OnInit {
   forward(){
     this.currentSlide=this.currentSlide+1;
   }
-  public auto(){
+  public auto() {
     console.log('Auto was clicked');
   
-    // Check if there are slider items and the current slide index is valid
-    if (this.sliderItems.length > 0 && this.currentSlide < this.sliderItems.length) {
-      // Speak the title of the current slide
-      this.speakNormalRate(this.sliderItems[this.currentSlide].title);
-      this.speak(this.sliderItems[this.currentSlide].title);
+    // Check if there are slider items
+    if (this.sliderItems.length > 0) {
+      // Function to handle speaking
+      const speakTitle = () => {
+        this.speakNormalRate(this.sliderItems[this.currentSlide].title);
+        this.speak(this.sliderItems[this.currentSlide].title);
+      };
   
-      // Set up an interval to go to the next slide and speak its title
-      const interval = setInterval(() => {
-        if (this.currentSlide < this.sliderItems.length - 1) {
-          this.currentSlide++;
-          this.speakNormalRate(this.sliderItems[this.currentSlide].title);
-          this.speak(this.sliderItems[this.currentSlide].title);
-        } else {
-          console.log('End of slides');
-          clearInterval(interval); // Stop the interval when the last slide is reached
+      // Function to advance to the next slide and speak
+      const advanceAndSpeak = () => {
+        if (this.currentSlide < this.sliderItems.length) {
+          speakTitle();
+  
+          // Determine the delay for the current slide
+          const delay = ()=> {
+            if (this.currentSlide===0){
+              return 10000;
+            }
+            else if (this.currentSlide===1){
+              return 3500;
+            }
+            else {return 5000}
+
+          } 
+          //const delay=this.currentSlide === 0? 3500 : 5000;
+  
+          // Set a timeout to advance to the next slide after the delay
+          setTimeout(() => {
+            this.currentSlide++;
+            if (this.currentSlide < this.sliderItems.length) {
+              advanceAndSpeak(); // Continue with the next slide
+            } else {
+              console.log('End of slides');
+            }
+          }, delay());
         }
-      }, 5000);
+      };
+  
+      // Start with the first slide
+      advanceAndSpeak();
     } else {
       console.log('No slider items or invalid current slide index');
     }
   }
+  
+
+  
+  
+  
+  
   
  public auto1(){
     console.log('Auto was clicked');
@@ -142,6 +193,8 @@ export class SliderFrenchPage implements OnInit {
     else{console.log('end of slides')}
   }
   ngOnInit() {
+  this.commentsButton= this.comments ? "Show Comments": "Hide Comments";
+   
     this.processedItems = this.items.map(item => {
       const splitTitle = item.title.split(item.redWord);
       return {
@@ -151,7 +204,7 @@ export class SliderFrenchPage implements OnInit {
       };
     });
 
-    this.wordSub = this.wordS.getWord('fille').subscribe(word => {
+    this.wordSub = this.wordS.getWord('chien').subscribe(word => {
       if (word) {
         this.word = word;
         console.log(this.word);
@@ -167,8 +220,10 @@ export class SliderFrenchPage implements OnInit {
       console.log(title1.word);
       const example1=this.word.example1 as {sentence:string, redWord:string}
       const example2=this.word.example2 as {sentence:string, redWord:string}
+      const exampleSentence = this.word.example1?.sentence;
 
       this.sliderItems=[
+        {image:image2, title:'one,two,three,four,five,six,seven,eight,nine,ten,start!', redWord:'one,two,three,four,five,six,seven,eight,nine,ten,start!'},
         {image:this.image, title:title1.redWord, redWord:title1.redWord},
         {image:image1, title:example1.sentence, redWord:example1.redWord},
         {image:image2, title:example2.sentence, redWord:example2.redWord}

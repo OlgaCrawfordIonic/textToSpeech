@@ -17,4 +17,5 @@ export class Word {
         public categories?: [],
         public level?: [],
     ) {}
+        public date?: Date
 }

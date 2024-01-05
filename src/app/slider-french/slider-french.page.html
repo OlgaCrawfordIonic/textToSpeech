@@ -6,60 +6,19 @@
       <div class="slider-container">
         <div class="slide">
           <h1>
-            {{sliderItems[currentSlide].title}}
-            
+            <!-- Bind the parts of the title -->
+            <span>{{splitTitle(sliderItems[currentSlide]).before}}</span>
+            <span style="color: red;">{{splitTitle(sliderItems[currentSlide]).red}}</span>
+            <span>{{splitTitle(sliderItems[currentSlide]).after}}</span>
           </h1>
-        <img [src]="sliderItems[currentSlide].image">
-       
-    
+          <img [src]="sliderItems[currentSlide].image">
         </div>
-        <ion-button *ngIf="!(currentSlide===this.sliderItems.length-1)" class="right"  (click)="forward()"> Forward</ion-button> 
-       <ion-button (click)="auto()">Autoplay</ion-button>
-      
+        <ion-button *ngIf="!(currentSlide === this.sliderItems.length - 1)" class="right" (click)="forward()">Forward</ion-button> 
+        <ion-button (click)="auto()">Autoplay</ion-button>
       </div>
-      <!-- Check if 'this.word' is defined -->
-<!-- Check if 'word' is defined -->
-<div *ngIf="word">
-  <!-- Display word and its image -->
-  <h2>{{ word.word }}</h2>
-  <img [src]="word.pathToImage" alt="Image of the word">
-
-  <!-- Display translations -->
-  <div *ngIf="word.translations">
-    <h3>Translations:</h3>
-    <ul>
-      <li *ngFor="let translation of word.translations">
-        {{ getFlagEmoji(translation.language) }} {{ translation.text }}
-      </li>
-    </ul>
-  </div>
-
-  <!-- Display first example -->
-  <div *ngIf="word.example1">
-    <h4>Example 1:</h4>
-    <p>{{ word.example1 }}</p>
-    <img [src]="word.pathToImage1" alt="Image for example 1">
-    <ul>
-      <li *ngFor="let translation of word.translations1">
-        {{ getFlagEmoji(translation.language) }} {{ translation.text }}
-      </li>
-    </ul>
-  </div>
-
-  <!-- Display second example -->
-  <div *ngIf="word.example2">
-    <h4>Example 2:</h4>
-    <p>{{ word.example2 }}</p>
-    <img [src]="word.pathToImage2" alt="Image for example 2">
-    <ul>
-      <li *ngFor="let translation of word.translations2">
-        {{ getFlagEmoji(translation.language) }} {{ translation.text }}
-      </li>
-    </ul>
-  </div>
-
-  <!-- Similarly, display other properties as needed -->
-</div>
+      
+    
+    
 
 <!-- Display a message if 'word' is undefined -->
 <div *ngIf="!word">
@@ -67,12 +26,17 @@
 </div>
 
 <div *ngIf="word">
+  <ion-button (click)="showComments()">{{commentsButton}}</ion-button>
+   <div *ngIf="comments">
   <div *ngFor="let translation of word.translations">
     {{ getFlagEmoji(translation.language) }} 
     {{ translation.text }}, 
     {{ getExampleTranslation(word.translations1, translation.language) }}, 
     {{ getExampleTranslation(word.translations2, translation.language) }}
   </div>
+
+</div>
+
 </div>
 
 

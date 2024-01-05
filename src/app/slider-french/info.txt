@@ -1,0 +1,5 @@
+translators: European lang -DeepL
+Russian: Yandex
+Chinese Baudo Translate, Papago Naver
+
+The size of thye window: 404 X 787 px
